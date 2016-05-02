@@ -1,11 +1,12 @@
+
 // Here is the javascript setup for a basic map:
 
 // Enter your mapbox map id here to reference it for the base layer,
 // this one references the ugly green map that I made.
-var mapId = 'dnicholson.019h3ah1';
+var mapId = 'will-breitkreutz.019h7bl7';
 
 // And this is my access token, use yours.
-var accessToken = 'pk.eyJ1IjoiZG5pY2hvbHNvbiIsImEiOiJjaW5xOGs1dTgxMGNrdHZseTVxbDJiMTcyIn0.A6iXPSuSl1u1_74djXFH2g';
+var accessToken = 'pk.eyJ1Ijoid2lsbC1icmVpdGtyZXV0eiIsImEiOiItMTJGWEF3In0.HEvuRMMVxBVR5-oDYvudxw';
 
 // Create the map object with your mapId and token,
 // referencing the DOM element where you want the map to go.
@@ -13,7 +14,7 @@ L.mapbox.accessToken = accessToken;
 var map = L.mapbox.map('map', mapId);
 
 // Set the initial view of the map to the whole US
-// map.setView([39, -96], 4);
+map.setView([39, -96], 4);
 
 // Great, now we have a basic web map!
 
@@ -25,18 +26,18 @@ var featureLayer = L.mapbox.featureLayer();
 
 featureLayer.on('ready', function(){
 	this.eachLayer(function(layer){
-		layer.setIcon(L.mapbox.marker.icon({
+    	layer.setIcon(L.mapbox.marker.icon({
         	"marker-color": "#8834bb",
-          	"marker-size": "small",
+          	"marker-size": "large",
           	"marker-symbol": "restaurant"
         }))
-	})
+    })
     map.fitBounds(featureLayer.getBounds());
 })
 
 //featureLayer.on('ready', function(){
-//  	this.eachLayer(function(layer){
-//      	layer.bindPopup('Welcome to ' + layer.feature.properties.name);  
+//	this.eachLayer(function(layer){
+//    	layer.bindPopup('Welcome to ' + layer.feature.properties.name);
 //    })
 //})
 
@@ -64,8 +65,8 @@ var clickHandler = function(e){
     })
     
     var myGeoJSON = myLocation.getGeoJSON();
-  
-  	getDirections (myGeoJSON.geometry.coordinates, feature.geometry.coordinates)  
+    
+    getDirections(myGeoJSON.geometry.coordinates, feature.geometry.coordinates);
 }
 
 featureLayer.on('ready', function(){
@@ -84,7 +85,7 @@ map.on('locationfound', function(e){
 	myLocation.setGeoJSON({
     	type: 'Feature',
       	geometry: {
-          	type: 'Point',
+        	type: 'Point',
           	coordinates: [ e.latlng.lng, e.latlng.lat ]
         },
       	properties: {
@@ -115,16 +116,16 @@ function getDirections(frm, to){
           	api_key: 'valhalla-gwtf3x2'
         }
     }).done(function(data){
-    	var routeShape = polyline.decode(data.trip.legs[0].shape)
-        routeLine.setGeoJSON({
-          type: 'Feature',
-          geometry: {
-          		type: 'LineString',
-            	coordinates: routeShape
-          },
-          properties: {
+    	var routeShape = polyline.decode(data.trip.legs[0].shape);
+      	routeLine.setGeoJSON({
+        	type: 'Feature',
+          	geometry: {
+            	type: 'LineString',
+              	coordinates: routeShape
+            },
+          	properties: {
             	"stroke": "#ed23f1",
-            	"stroke-opacity": 0.8,
+              	"stroke-opacity": 0.8,
               	"stroke-width": 8
             }
         })
