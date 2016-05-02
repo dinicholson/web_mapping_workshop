@@ -23,8 +23,8 @@ var featureLayer = L.mapbox.featureLayer();
 	featureLayer.loadURL(dataFileToAdd);
 	featureLayer.addTo(map);
 
-featureLayer.on('ready', funtion(){
-	this.eachLayer(fuction(layer){
+featureLayer.on('ready', function(){
+	this.eachLayer(function(layer){
 		layer.setIcon(L.mapbox.marker.icon({
         	"marker-color": "#8834bb",
           	"marker-size": "large",
