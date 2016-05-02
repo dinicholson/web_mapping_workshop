@@ -27,7 +27,7 @@ featureLayer.on('ready', function(){
 	this.eachLayer(function(layer){
 		layer.setIcon(L.mapbox.marker.icon({
         	"marker-color": "#8834bb",
-          	"marker-size": "medium",
+          	"marker-size": "small",
           	"marker-symbol": "restaurant"
         }))
 	})
